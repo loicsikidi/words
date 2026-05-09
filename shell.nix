@@ -8,7 +8,14 @@
   helpers = import (builtins.fetchTarball
     "https://github.com/loicsikidi/nix-shell-toolbox/tarball/main") {
     inherit pkgs;
-    hooksConfig = {};
+    hooksConfig = {
+      lychee = {
+        settings.flags = "./content"; # check only content directory
+      };
+      treefmt = {
+        enable = true;
+      };
+    };
   };
 in
   pkgs.mkShell {
