@@ -1,7 +1,7 @@
 +++
 date = '2026-05-08T23:19:05+02:00'
 draft = false
-title = "Why I'm creating this blog?"
+title = "Why I'm creating a personal blog?"
 description = 'From impostor syndrome to contributing to open source'
 tags = ['general']
 +++
