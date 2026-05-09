@@ -1,0 +1,19 @@
+{{- if eq .Type "alert" -}}
+<div class="alert alert-{{ .AlertType }}" role="alert">
+  <div class="alert-title">
+    <span class="alert-icon"></span>
+    <span class="alert-type-label">{{ .AlertType | strings.FirstUpper }}</span>
+    {{- with .AlertTitle -}}
+      <span class="alert-separator">|</span>
+      <span class="alert-custom-title">{{ . }}</span>
+    {{- end -}}
+  </div>
+  <div class="alert-content">
+    {{ .Text | safeHTML }}
+  </div>
+</div>
+{{- else -}}
+<blockquote>
+  {{ .Text | safeHTML }}
+</blockquote>
+{{- end -}}

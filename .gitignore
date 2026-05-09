@@ -21,3 +21,6 @@ result
 # AI assistant
 GOAL.md
 .claude/
+
+# pre-commit
+.pre-commit-config.yaml

@@ -1,0 +1,228 @@
+/* Custom light theme - Light violet */
+:root {
+    --theme: #f5f3ff;
+    --entry: #ffffff;
+    --primary: #7c3aed;
+    --secondary: #a78bfa;
+    --tertiary: #ddd6fe;
+    --content: #374151;
+    --hljs-bg: #faf9fc;
+    --code-bg: #f3f0ff;
+    --border: #e9d5ff;
+}
+
+/* Apply background colors directly for light mode */
+html:not([data-theme="dark"]) body,
+body:not(.dark) {
+    background: var(--theme);
+    color: var(--content);
+}
+
+html:not([data-theme="dark"]) .main,
+body:not(.dark) .main {
+    background: var(--theme);
+}
+
+html:not([data-theme="dark"]) .post-entry,
+body:not(.dark) .post-entry {
+    background: var(--entry);
+}
+
+html:not([data-theme="dark"]) .post-content,
+body:not(.dark) .post-content {
+    background: var(--theme);
+}
+
+html:not([data-theme="dark"]) .post-single,
+body:not(.dark) .post-single {
+    background: var(--theme);
+}
+
+html:not([data-theme="dark"]) a,
+body:not(.dark) a {
+    color: var(--primary);
+}
+
+html:not([data-theme="dark"]) .post-title,
+body:not(.dark) .post-title {
+    color: var(--primary);
+}
+
+/* Alert boxes (admonitions) */
+.alert {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid;
+    border-radius: 0.375rem;
+    background: var(--entry);
+}
+
+.alert-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+}
+
+.alert-icon {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.alert-type-label {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+}
+
+.alert-separator {
+    opacity: 0.5;
+}
+
+.alert-custom-title {
+    font-weight: 400;
+}
+
+.alert-content {
+    margin: 0;
+}
+
+.alert-content p:first-child {
+    margin-top: 0;
+}
+
+.alert-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Note (blue/violet) */
+.alert-note {
+    border-left-color: #7c3aed;
+    background: #f5f3ff;
+}
+
+.alert-note .alert-title {
+    color: #5b21b6;
+}
+
+.alert-note .alert-icon::before {
+    content: "ℹ";
+    color: #7c3aed;
+}
+
+/* Tip (green) */
+.alert-tip {
+    border-left-color: #10b981;
+    background: #f0fdf4;
+}
+
+.alert-tip .alert-title {
+    color: #047857;
+}
+
+.alert-tip .alert-icon::before {
+    content: "💡";
+}
+
+/* Important (purple) */
+.alert-important {
+    border-left-color: #8b5cf6;
+    background: #faf5ff;
+}
+
+.alert-important .alert-title {
+    color: #6b21a8;
+}
+
+.alert-important .alert-icon::before {
+    content: "‼";
+    color: #8b5cf6;
+}
+
+/* Warning (yellow/orange) */
+.alert-warning {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.alert-warning .alert-title {
+    color: #b45309;
+}
+
+.alert-warning .alert-icon::before {
+    content: "⚠";
+    color: #f59e0b;
+}
+
+/* Caution (red) */
+.alert-caution {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+}
+
+.alert-caution .alert-title {
+    color: #b91c1c;
+}
+
+.alert-caution .alert-icon::before {
+    content: "🛑";
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .alert,
+.dark .alert {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .alert-note,
+.dark .alert-note {
+    background: rgba(124, 58, 237, 0.1);
+}
+
+[data-theme="dark"] .alert-note .alert-title,
+.dark .alert-note .alert-title {
+    color: #a78bfa;
+}
+
+[data-theme="dark"] .alert-tip,
+.dark .alert-tip {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+[data-theme="dark"] .alert-tip .alert-title,
+.dark .alert-tip .alert-title {
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .alert-important,
+.dark .alert-important {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+[data-theme="dark"] .alert-important .alert-title,
+.dark .alert-important .alert-title {
+    color: #c4b5fd;
+}
+
+[data-theme="dark"] .alert-warning,
+.dark .alert-warning {
+    background: rgba(245, 158, 11, 0.1);
+}
+
+[data-theme="dark"] .alert-warning .alert-title,
+.dark .alert-warning .alert-title {
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .alert-caution,
+.dark .alert-caution {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+[data-theme="dark"] .alert-caution .alert-title,
+.dark .alert-caution .alert-title {
+    color: #fca5a5;
+}

@@ -1,0 +1,63 @@
+baseURL = 'https://words.lsikidi.com/'
+languageCode = 'en-US'
+title = "Loïc Sikidi"
+
+# Pagination
+[pagination]
+  pagerSize = 10
+
+# Enable emoji support
+enableEmoji = true
+
+# Output formats for RSS and Search
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Hugo Modules - PaperMod as a module
+[module]
+  [[module.imports]]
+    path = "github.com/adityatelange/hugo-PaperMod"
+
+# Menu configuration
+[menu]
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 10
+
+# PaperMod configuration
+[params]
+  description = "Personal blog - Sharing ideas and experiences"
+  author = "Loïc Sikidi"
+
+  # Default theme (light or dark)
+  defaultTheme = "auto"
+
+  # Show theme toggle button
+  ShowShareButtons = false
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowRssButtonInSectionTermList = true
+
+  # Home page configuration
+  [params.homeInfoParams]
+    Title = "Welcome to my blog 👋"
+    Content = """
+I share my ideas, experiences, and thoughts here.
+"""
+
+  # Profile mode (social icons)
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/loicsikidi"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
+
+  # Cover image
+  [params.cover]
+    linkFullImages = true
