@@ -11,6 +11,13 @@
     --border: #e9d5ff;
 }
 
+/* Dark mode theme - keep violet for titles and links */
+:root[data-theme="dark"],
+.dark {
+    --primary: #7c3aed;
+    --secondary: #c4c4c5;
+}
+
 /* Apply background colors directly for light mode */
 html:not([data-theme="dark"]) body,
 body:not(.dark) {
@@ -45,6 +52,32 @@ body:not(.dark) a {
 
 html:not([data-theme="dark"]) .post-title,
 body:not(.dark) .post-title {
+    color: var(--primary);
+}
+
+/* Dark mode - violet for links and titles */
+[data-theme="dark"] a,
+.dark a {
+    color: var(--primary);
+}
+
+[data-theme="dark"] .post-title,
+.dark .post-title {
+    color: var(--primary);
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
     color: var(--primary);
 }
 
@@ -225,4 +258,28 @@ body:not(.dark) .post-title {
 [data-theme="dark"] .alert-caution .alert-title,
 .dark .alert-caution .alert-title {
     color: #fca5a5;
+}
+
+/* Hide post description on home page */
+.post-entry .entry-content {
+    display: none;
+}
+
+/* Add spacing between title and date on home page */
+.post-entry .entry-footer {
+    margin-top: 20px;
+}
+
+/* Hide author name on home page post preview */
+.post-entry .entry-footer span:last-child {
+    display: none;
+}
+
+/* Add spacing between title and date on post page */
+.post-description {
+    margin-top: 40px;
+}
+
+.post-meta {
+    margin-top: 30px;
 }
