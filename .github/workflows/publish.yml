@@ -5,6 +5,7 @@ on:
     paths:
       - 'content/**'
       - 'assets/**'
+      - 'layouts/**'
       - 'hugo.toml'
     branches: ["main"]
   workflow_dispatch: # allow to trigger the workflow manually
