@@ -1,7 +1,7 @@
 +++
 date = '2026-05-09T11:14:30+02:00'
 draft = false
-title = 'Optional Argument is Dope'
+title = 'Making Go APIs More Ergonomic with Optional Arguments'
 tags = ['programming', 'go']
 +++
 

@@ -1,7 +1,7 @@
 +++
 date = '2026-05-10T00:22:49+02:00'
 draft = false
-title = "I'm Not a Big Fan of Variadic Functions"
+title = "Why I Prefer Structs Over Variadic Functions in Go"
 tags = ['programming', 'go']
 +++
 
