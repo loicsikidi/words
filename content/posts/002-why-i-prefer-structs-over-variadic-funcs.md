@@ -82,7 +82,7 @@ When a configuration requires many options, the code quickly becomes verbose.
 
 In more and more projects I work on, configuration is managed via configuration files (e.g. YAML, TOML). Variadic functions don't integrate naturally into this type of use case, which makes the code less flexible.
 
-Make no mistake, as the example below shows, it's entirely possible to achieve the goal, but I find the process less intuitive and more verbose than it should be.
+Don't get me wrong, as the example below shows, it's entirely possible to achieve the goal, but I find the process less intuitive and more verbose than it should be.
 
 {{< details summary="Example" >}}
 
