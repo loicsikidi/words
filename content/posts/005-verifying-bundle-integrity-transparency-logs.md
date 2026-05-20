@@ -1,5 +1,5 @@
 +++
-date = '2026-05-22T08:00:00+02:00'
+date = '2026-05-22T01:00:00+02:00'
 draft = true
 title = 'Verifying Bundle Integrity with Transparency Logs'
 description = 'Part 3 of the tpm-ca-certificates series.'

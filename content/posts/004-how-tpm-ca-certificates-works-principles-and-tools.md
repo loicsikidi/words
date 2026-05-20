@@ -1,5 +1,5 @@
 +++
-date = '2026-05-21T08:00:00+02:00'
+date = '2026-05-21T01:00:00+02:00'
 draft = false
 title = 'How tpm-ca-certificates Works: Principles and Tools'
 description = 'Part 2 of the tpm-ca-certificates series.'
