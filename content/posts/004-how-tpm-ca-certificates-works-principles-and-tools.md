@@ -1,0 +1,190 @@
++++
+date = '2026-05-21T08:00:00+02:00'
+draft = false
+title = 'How tpm-ca-certificates Works: Principles and Tools'
+description = 'Part 2 of the tpm-ca-certificates series.'
+summary = 'Part 2 of the tpm-ca-certificates series.'
+tags = ['tpm', 'security', 'tpm-ca-certificates']
++++
+
+> [!NOTE]
+> This is the second post in <a href="/tags/tpm-ca-certificates/" target="_blank">the series</a> about <a href="https://github.com/loicsikidi/tpm-ca-certificates" target="_blank"><strong>tpm-ca-certificates</strong></a>.
+>
+> If you're new to this series, I recommend starting with the <a href="/posts/003-building-trust-why-tpm-certificate-validation-matters/" target="_blank">first one</a>.
+
+## The Principles
+
+When I started *designing* the project, I wanted it to follow a number of principles to ensure its reliability, security, and ease of use.
+
+Let's look at them more closely.
+
+### 1. An open-source project
+
+The project is free and open, which allows the community to contribute, audit the code, and ensure its transparency.
+
+### 2. A declaratively generated bundle
+
+Each *bundle* is built from a *human-readable* configuration. The project stores two files [^1] at its root: the first for root certificates (self-signed) and the second for intermediate certificates.
+
+Please find below a snippet:
+
+```yaml
+vendors:
+    - id: "AMD"
+      name: "AMD"
+      certificates:
+        - name: "AMD Pluton Global Factory ICA"
+          uri: "https://ftpm.amd.com/hsp/ica/AMD-Pluton-Global-Factory-ICA.crt"
+          validation:
+            fingerprint:
+                sha256: "59:3A:17:94:F9:E1:74:76:C7:AD:42:7D:29:08:A9:7C:45:14:51:C9:E0:93:9F:DC:80:D5:D6:62:C2:32:D4:01"
+```
+
+As you can see, the configuration places the **provenance** of a certificate as a central element.
+
+It was essential for me to guarantee total transparency about the origin of certificates, which is why (apart from exceptions) the repo stores no certificates.
+
+{{< details summary="Exception details" >}}
+
+If a certificate already included in the bundle is no longer publicly accessible because the manufacturer removed it, a local copy is kept to ensure continuity.
+
+This operation is performed ***if and only if*** the manufacturer has not officially deprecated the certificate.
+
+> [!NOTE]
+> Local certs are stored in the <a href="https://github.com/loicsikidi/tpm-ca-certificates/tree/main/certificates" target="_blank">`certificates/`</a> directory.
+
+{{< /details >}}
+
+</br>
+
+Since resources are remote, an integrity verification mechanism is essential. This is why adding a new certificate is accompanied by generating a fingerprint.
+
+> [!TIP]
+> The configuration file specification is available <a href="https://github.com/loicsikidi/tpm-ca-certificates/blob/main/docs/specifications/01-configuration-file.md" target="_blank">here</a>.
+
+### 3. A reproducible bundle
+
+The third principle is to ensure that each publicly generated bundle can be reproduced identically from its original configuration.
+
+To do this, `tpm-ca-certificates` provides a CLI named **tpmtb**[^2] which allows (among other things) to generate the bundle from the configuration.
+
+To validate integrity, it's simple, just run the commands below:
+
+```bash
+git clone https://github.com/loicsikidi/tpm-ca-certificates
+cd tpm-ca-certificates
+RELEASE_DATE=2026-05-19 # latest release (at the time of writing)
+git checkout $RELEASE_DATE # YYYY-MM-DD
+go run ./ bundle generate --config .tpm-roots.yaml --output tpm-ca-certificates.pem --workers 10
+go run ./ bundle generate --config .tpm-intermediates.yaml --output tpm-intermediate-ca-certificates.pem --workers 10
+sha256sum tpm-ca-certificates.pem  tpm-intermediate-ca-certificates.pem # Compare with released checksum
+```
+
+> [!TIP]
+> The specification on bundle reproducibility is available <a href="https://github.com/loicsikidi/tpm-ca-certificates/blob/main/docs/specifications/03-bundle-generation-backward-compatibility.md" target="_blank">here</a>.
+
+### 4. Proof of inclusion
+
+To submit a new certificate to one of the bundles, it's necessary to provide proof (e.g., an official link, a PDF, etc.) to justify its inclusion. The various proofs are compiled in the <a href="https://github.com/loicsikidi/tpm-ca-certificates/tree/main/src" target="_blank">`src/`</a> directory and ensure transparency and audit of included certificates.
+
+### 5. A bundle in a standard (and practical) format
+
+The project generates the bundle in PEM format.
+
+After careful consideration, I chose this format for two reasons:
+
+1. it's compatible with the majority of existing tools and libraries.
+1. it allows adding metadata
+   * useful for adding information for users (transparency, audit, etc.)
+   * useful to add business logic (e.g., filtering, search, etc.)
+
+Find below a snippet of the generated bundle:
+
+```
+##
+## tpm-ca-certificates.pem
+##
+## Date: 2026-04-11
+## Commit: 7e245bcd7c6a19e92df9656f00a796765e875808
+##
+## This file has been auto-generated by tpmtb (TPM Trust Bundle)
+## and contains a list of verified TPM Root Endorsement Certificates.
+##
+
+#
+# Certificate: AMDTPM ECC
+# Owner: AMD
+#
+# Issuer: CN=AMDTPM,OU=Engineering,O=Advanced Micro Devices,L=Sunnyvale,ST=CA,C=US
+# Serial Number: 46881938082510745600952034594836025327 (0x23452201d41c5ab064032bd23f158fef)
+# Subject: CN=AMDTPM,OU=Engineering,O=Advanced Micro Devices,L=Sunnyvale,ST=CA,C=US
+# Not Valid Before: Fri Jan 01 05:00:00 2016
+# Not Valid After : Tue Jan 01 05:00:00 2041
+# Fingerprint (SHA-256): C2:CB:57:BF:72:3C:17:4F:16:6C:5A:A1:DC:64:16:09:81:05:4B:EE:18:C7:0E:B1:DE:BF:C1:51:8A:FA:92:D2
+# Fingerprint (SHA1): 8F:A1:A2:BD:F9:09:7D:41:4C:A0:EE:62:42:89:5C:0A:75:2A:D7:D1
+-----BEGIN CERTIFICATE-----
+....
+-----END CERTIFICATE-----
+```
+
+We can see that the bundle contains global metadata (generation date, commit, etc.) and information specific to each certificate (owner, issuer, validity period, fingerprints, etc.).
+
+> [!TIP]
+> The bundle format specification is available <a href="https://github.com/loicsikidi/tpm-ca-certificates/blob/main/docs/specifications/04-tpm-trust-bundle-format.md" target="_blank">here</a>.
+
+
+{{< details summary="Bonus: where tpm-ca-certificates differs from the Windows bundle" >}}
+
+</br>
+
+| tpm-ca-certificates | Windows |
+|:-------------------:|:-------:|
+| open source | closed source |
+| The project emphasizes providing the provenance of each certificate | The bundle provides no information about provenance (you have to deduce it or trust Microsoft) |
+| The bundle is provided in a standard format (PEM) | it's an archive with folders containing certificates in DER format |
+
+<p align="center"><b>Table: </b><em>Comparison with Windows bundle</em></p>
+
+> [!NOTE]
+> Nevertheless, it must be acknowledged that Windows has a large database of root and intermediate certificates.
+
+{{< /details >}}
+
+## The available tools
+
+For the above principles to be embodied, the repo provides a CLI named **tpmtb**[^2] which allows:
+
+1. to manage the bundle configuration file (addition, deletion, validation, formatting)
+1. to generate the bundle
+1. to list and download different versions of the bundle
+
+In addition, the core logic is held in a **Golang SDK** and the CLI is built on top of it.
+
+Any Go application willing to interact with the TPM trust bundle can leverage this SDK.
+
+You can find the SDK documentation <a href="https://pkg.go.dev/github.com/loicsikidi/tpm-ca-certificates/pkg/apiv1beta" target="_blank">here</a>.
+
+**How release process works**
+
+When a new version of the bundle is ready, a tag is created (following the format **`YYYY-MM-DD`**) and a publication pipeline is triggered.
+
+Once completed, the *root* and *intermediate* bundles are published publicly as GitHub artifacts.
+
+## Conclusion
+
+In this post, we've seen that the project relies on several pillars:
+
+* **transparency** ➡️ open source + the provenance of each certificate is documented in the configuration
+* **reproducibility** ➡️ anyone can regenerate the bundle from the configuration
+
+There's a third one that I deliberately omitted until now: **integrity**. Indeed, how do we ensure the bundle is intact and was actually produced by the repo in a secure context? This is what we'll address in the next post!
+
+<!-- This is what we'll address in the <a href="/posts/005-verifying-bundle-integrity-transparency-logs/">next post</a>. -->
+
+![](/images/tpm-ca-series/pillars.png)
+
+<p align="center"><em>Note: image generated by ChatGPT</em></p>
+
+
+[^1]: `.tpm-roots.yaml` and `.tpm-intermediates.yaml`
+[^2]: `tpmtb` (TPM Trust Bundle)
