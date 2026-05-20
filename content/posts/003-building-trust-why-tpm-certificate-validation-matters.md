@@ -72,9 +72,9 @@ Not really, Windows also maintains a bundle available <a href="https://learn.mic
 
 ## Conclusion
 
-In this post, we explained what motivated me to create `tpm-ca-certificates` (the **why**), in the next one, we'll see how it works!
+In this post, we explained what motivated me to create `tpm-ca-certificates`, in the next one, we'll see how it works!
 
-<!-- In this post, we explained what motivated me to create `tpm-ca-certificates` (the **why**), in the <a href="/posts/004-how-tpm-ca-certificates-works-principles-and-tools/">next one</a>, we'll see how it works. -->
+<!-- In this post, we explained what motivated me to create `tpm-ca-certificates`, in the <a href="/posts/004-how-tpm-ca-certificates-works-principles-and-tools/">next one</a>, we'll see how it works. -->
 
 {{< details summary="Why this name?" >}}
 
