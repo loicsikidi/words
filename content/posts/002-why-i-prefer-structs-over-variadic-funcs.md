@@ -88,8 +88,8 @@ Don't get me wrong, as the example below shows, it's entirely possible to achiev
 
 ```go
 type options struct {
-    name  string `yaml:"name"`
-    debug bool   `yaml:"debug"`
+    Name  string `yaml:"name"`
+    Debug bool   `yaml:"debug"`
 }
 
 type Option func(o *options) error
