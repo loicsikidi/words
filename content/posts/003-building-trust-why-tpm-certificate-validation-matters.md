@@ -21,7 +21,8 @@ By *authenticity*, we mean the formal verification (via a cryptographic signatur
 
 By providing a bundle that centralizes trust authority certificates supplied by TPM manufacturers.
 
-> [!NOTE] <strong>tpm-ca-certificates</strong> in numbers
+> [!NOTE]
+> **tpm-ca-certificates** centralizes:
 > * **29**: root certificates
 > * **147**: intermediate certificates
 > * **8**: manufacturers
