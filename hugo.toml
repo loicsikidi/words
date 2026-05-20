@@ -2,6 +2,12 @@ baseURL = 'https://words.lsikidi.com/'
 languageCode = 'en-US'
 title = "Loïc Sikidi"
 
+# Markdown rendering configuration
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 # Pagination
 [pagination]
   pagerSize = 10
@@ -20,11 +26,6 @@ enableEmoji = true
 
 # Menu configuration
 [menu]
-  [[menu.main]]
-    identifier = "search"
-    name = "Search"
-    url = "/search/"
-    weight = 10
 
 # PaperMod configuration
 [params]
@@ -53,6 +54,10 @@ I share my ideas, experiences, and thoughts here.
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/loicsikidi"
+
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/lo%C3%AFc-sikidi-8b101674/"
 
   [[params.socialIcons]]
     name = "rss"

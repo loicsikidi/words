@@ -17,9 +17,9 @@ In short, it was time to change that.
 
 So I took the plunge and devoted quite a bit of time to different projects around TPMs[^1]:
 
-* [tpm-pills](https://github.com/loicsikidi/tpm-pills)
-* [tpm-ca-certificates](https://github.com/loicsikidi/tpm-ca-certificates)
-* [tpm-trust](https://github.com/loicsikidi/tpm-trust)
+* <a href="https://github.com/loicsikidi/tpm-pills" target="_blank">tpm-pills</a>
+* <a href="https://github.com/loicsikidi/tpm-ca-certificates" target="_blank">tpm-ca-certificates</a>
+* <a href="https://github.com/loicsikidi/tpm-trust" target="_blank">tpm-trust</a>
 
 > [!NOTE]
 > I'll probably discuss these projects in more detail in future articles.

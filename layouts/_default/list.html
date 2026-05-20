@@ -1,0 +1,111 @@
+{{- define "main" }}
+
+{{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{- partial "index_profile.html" . }}
+{{- else }}
+
+{{- if (and .IsHome site.Params.homeInfoParams) }}
+<article class="first-entry home-info">
+  <header class="entry-header">
+    <h1>{{ site.Params.homeInfoParams.Title | default .Title }}</h1>
+  </header>
+  <div class="entry-content md-content">
+    <p>{{ site.Params.homeInfoParams.Content | markdownify }}</p>
+  </div>
+  <footer class="entry-footer">
+    {{- if site.Params.socialIcons }}
+    <div class="social-icons">
+      {{- range site.Params.socialIcons }}
+      <a href="{{ .url | absURL }}" target="_blank" rel="noopener noreferrer me" title="{{ .name | title }}">
+        {{- partial "svg.html" . }}
+      </a>
+      {{- end }}
+    </div>
+    {{- end }}
+  </footer>
+</article>
+{{- end }}
+
+{{- if not .IsHome }}
+<header class="page-header">
+  <h1>
+    {{ .Title }}
+    {{- if and (or .IsHome .IsSection) (.Param "ShowRssButtonInSectionTermList") }}
+    <a href="index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- .Content }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- range $index, $page := $paginator.Pages }}
+
+{{- $class := "post-entry" }}
+
+<article class="{{ $class }}">
+  <header class="entry-header">
+    <h2>
+      {{- .Title }}
+      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+    </h2>
+  </header>
+  {{- if .Params.summary }}
+  <div class="entry-content">
+    <p>{{ .Params.summary | markdownify }}</p>
+  </div>
+  {{- end }}
+  <footer class="entry-footer">
+    <span title="{{ .Date }}">{{ .Date.Format "January 2, 2006" }}</span>
+    {{- if (and (.Param "ShowReadingTime") (eq .Type "posts")) }}
+    &nbsp;·&nbsp;<span>{{ .ReadingTime }} min</span>
+    {{- end }}
+  </footer>
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+      « {{ i18n "prev_page" }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+      {{ i18n "next_page" }} »
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}{{/* end profileMode */}}
+
+{{- end }}{{- /* end main */ -}}

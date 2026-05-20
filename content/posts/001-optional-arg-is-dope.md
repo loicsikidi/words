@@ -28,7 +28,7 @@ func main() {
 ```
 
 > [!NOTE]
-> The complete example is available via the Go playground: [here](https://go.dev/play/p/HBzgGmQQBsd).
+> The complete example is available via the Go playground: <a href="https://go.dev/play/p/HBzgGmQQBsd" target="_blank">here</a>.
 
 We can notice that we use a variadic argument to handle optional arguments. This approach works but as we can see, it's limited to a single argument which **must** necessarily be the last one.
 
@@ -77,7 +77,7 @@ func main() {
 ```
 
 > [!NOTE]
-> The complete example is available via the Go playground: [here](https://go.dev/play/p/9j2vNUoXa2_G).
+> The complete example is available via the Go playground: <a href="https://go.dev/play/p/9j2vNUoXa2_G" target="_blank">here</a>.
 
 Often as an API user, we want to rely on default values because they are generally sufficient for the majority of use cases.
 
@@ -87,6 +87,9 @@ Here, we end up with two interface contracts that I find perfectible.
 |:--------------:|:--------:|
 | `A` | We end up providing `nil` (especially if the default config is a private variable) which is anything but intuitive. |
 | `B` | We have to read the code to find the constant, which can be tedious. |
+
+<p align="center"><b>Table: </b><em>Implementation Comparison</em></p>
+
 
 In such a scenario, I think using an optional argument is the most elegant from an ergonomic point of view.
 
@@ -164,7 +167,7 @@ func GreetingsWithDefault(name string, optionalAge ...int) {
 ```
 
 > [!NOTE]
-> The complete example is available via the Go playground: [here](https://go.dev/play/p/JSHV8mMXkAR).
+> The complete example is available via the Go playground: <a href="https://go.dev/play/p/JSHV8mMXkAR" target="_blank">here</a>.
 
 ## Conclusion
 

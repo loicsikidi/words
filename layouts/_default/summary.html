@@ -1,0 +1,7 @@
+{{- if .Params.summary -}}
+<div class="entry-content">
+  <p>{{ .Params.summary }}</p>
+</div>
+{{- else -}}
+{{/* No summary provided - intentionally blank */}}
+{{- end -}}

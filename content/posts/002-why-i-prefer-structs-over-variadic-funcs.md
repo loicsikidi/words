@@ -59,7 +59,7 @@ func main() {
 ```
 
 > [!NOTE]
-> The complete example is available via the Go playground: [here](https://go.dev/play/p/SpGQz7cTeDE).
+> The complete example is available via the Go playground: <a href="https://go.dev/play/p/SpGQz7cTeDE" target="_blank">here</a>.
 
 As we can see, the idea is to chain optional functions to configure a structure flexibly based on needs.
 
@@ -142,7 +142,7 @@ func New(config *Config) *Struct {
 ```
 
 > [!NOTE]
-> The complete example is available via the Go playground: [here](https://go.dev/play/p/vftAFNILkWN).
+> The complete example is available via the Go playground: <a href="https://go.dev/play/p/vftAFNILkWN" target="_blank">here</a>.
 
 This approach doesn't necessarily reduce the number of lines of code, but addresses the 3 grievances mentioned previously:
 
